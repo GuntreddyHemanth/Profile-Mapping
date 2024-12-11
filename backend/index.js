@@ -46,7 +46,7 @@ app.post("/api/v1/signin", async (req, res) => {
 
     res.cookie("token", token, {httpOnly: true})
 
-    return res.send("logged in")
+    return res.status(201).json({id: user.id, token})
 })
 
 app.post("/api/v1/signup", async (req, res) => {
@@ -77,7 +77,7 @@ app.post("/api/v1/signup", async (req, res) => {
         );
 
         res.cookie("token", token, {httpOnly:true})
-        return res.status(201).send("SignUp successfully")
+        return res.status(201).json({id: newuser.id, token})
         
     } catch (error) {
         console.error(error)

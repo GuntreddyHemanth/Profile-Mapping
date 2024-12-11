@@ -1,13 +1,26 @@
 import axios from "axios";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 export const AuthContext = createContext()
 
 export const AuthProvider = ({children}) =>{
-    const [user, setUser] = useState(null)
+    const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('mentorship-user')) ||null)
     const navigation = useNavigate()
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem('mentorship-user')) || null
+        setAuthUser(userData)
+    }, [])
+
+    useEffect(() => {
+        if (authUser) {
+            localStorage.setItem('mentorship-user', JSON.stringify(authUser))
+        } else {
+            localStorage.removeItem('mentorship-user')
+        }
+    }, [authUser])
 
     const signin = async (username, password) => {
         try {
@@ -15,8 +28,9 @@ export const AuthProvider = ({children}) =>{
                 username,
                 password
             }, {withCredentials: true})
-            setUser(response.statusText)
-            console.log(response.statusText)
+            const userData = {id: response.data.id, token: response.data.token}
+            localStorage.setItem('mentorship-user', JSON.stringify(userData))
+            setAuthUser(userData)
             alert("Your account has been created");
             navigation("/")
         } catch (error) {
@@ -31,7 +45,9 @@ export const AuthProvider = ({children}) =>{
                 username,
                 password
             }, {withCredentials: true})
-            setUser(response.data.user)
+            const userData = {id: response.data.id, token: response.data.token}
+            localStorage.setItem('mentorship-user', JSON.stringify(userData))
+            setAuthUser(userData)
             alert("You are logged in");
             navigation("/")
         } catch (error) {
@@ -43,7 +59,8 @@ export const AuthProvider = ({children}) =>{
     const logout = async() => {
         try {
             const response  = await axios.get('http://localhost:3000/logout', {}, {withCredentials:true})
-            setUser(null)
+            localStorage.removeItem('mentorship-user')
+            setAuthUser(null)
             alert("your successfully logout!")
             navigation("/api/v1/signup")
         } catch (error) {
@@ -52,7 +69,7 @@ export const AuthProvider = ({children}) =>{
     }
 
     return (
-        <AuthContext.Provider value={{user, signin, signup, logout}}>
+        <AuthContext.Provider value={{authUser, signin, signup, logout, setAuthUser}}>
             {children}
         </AuthContext.Provider>
     )

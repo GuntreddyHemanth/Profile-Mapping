@@ -1,22 +1,14 @@
 import React from 'react'
 import { useAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import Profile from './Profile'
 
 const Home = () => {
-  const {logout, user} = useAuth()
-  const navigate = useNavigate()
-
-  if (user !== 'OK') {
-    return <div>
-       <h1>Please log in to access this page.</h1>
-       <button onClick={() => navigate("/api/v1/signup")}>Sign Up</button>
-      </div>
-  }
-
+  const {logout, authUser} = useAuth()
   return (
     <div>
-       <h1>Welcome, {user}</h1>
+       <h1>Welcome, {authUser.id}</h1>
        <button onClick={() => logout()}>Log Out</button>
+       <Profile/>
     </div>
   )
 }
