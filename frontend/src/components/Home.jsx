@@ -8,7 +8,6 @@ const Home = () => {
     <div>
        <h1>Welcome, {authUser.id}</h1>
        <button onClick={() => logout()}>Log Out</button>
-       <Profile/>
     </div>
   )
 }

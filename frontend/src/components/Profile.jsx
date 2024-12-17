@@ -13,7 +13,7 @@ const Profile = () => {
 
   useEffect(()=> {
     if (authUser) {
-      axios.get(`/api/v1/profile/{authUser.id}`)
+      axios.get(`http://localhost:3000/api/v1/profile/${authUser.id}`)
       .then((response) => {
         const {role, skills, interest, bio} = response.data
         setRole(role || '')
@@ -33,7 +33,7 @@ const Profile = () => {
   const handleSave = async () => {
     const profileData = {role, skills, interest, bio};
     try {
-      const response = await axios.post("/api/v1/profile", {...profileData, userId: authUser.id})
+      const response = await axios.post("http://localhost:3000/api/v1/profile", {...profileData, userId: authUser.id})
       alert('Profile saved successfully!')
 
     } catch (error) {

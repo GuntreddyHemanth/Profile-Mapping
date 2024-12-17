@@ -128,7 +128,6 @@ app.post("/api/v1/profile", async (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log("port")
-})
-
-
+    console.log("Server running on http://localhost:3000");
+  });
+  
