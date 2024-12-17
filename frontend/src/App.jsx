@@ -5,6 +5,7 @@ import Signup from './components/Signup'
 import Home from './components/Home'
 import {useAuth } from './context/AuthContext'
 import Profile from './components/Profile'
+import Discover from './components/Discover'
 
 function App() {
   const {authUser} = useAuth()
@@ -13,7 +14,8 @@ function App() {
             <Route path='/api/v1/signin' element={authUser ? <Navigate to="/"/> : <Signin/>}/>
             <Route path='/api/v1/signup' element={authUser ? <Navigate to="/"/> : <Signup/>}/>
             <Route path='/' element={authUser ? <Home/> : <Navigate to= "/api/v1/signin"/>}/> 
-            <Route path='/api/v1/profile' element={authUser ? <Profile/> :  <Navigate to="/api/v1/signin"/>}/>         
+            <Route path='/api/v1/profile' element={authUser ? <Profile/> :  <Navigate to="/api/v1/signin"/>}/> 
+            <Route path='/api/v1/discover' element={authUser ? <Discover/> :  <Navigate to="/api/v1/signin"/>}/>        
           </Routes>
   )
 }

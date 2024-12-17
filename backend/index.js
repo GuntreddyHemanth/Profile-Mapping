@@ -127,6 +127,28 @@ app.post("/api/v1/profile", async (req, res) => {
     }
 })
 
+
+app.get("/api/v1/discover", async(req, res) => {
+    const {role, skills, interest} = req.query;
+
+    try {
+        const profile = await prisma.profile.findMany({
+            where: {
+              AND: [
+                role ? {role:{ contains: role, mode: "insensitive"} }: {},
+                skills ? {skills: {contains: skills, mode: "insensitive"}}: {},
+                interest ? {interest:{contains: interest, mode:"insensitive"}}: {}
+              ],
+            }
+        })
+
+        res.status(200).json(profile)
+    } catch (error) {
+        console.log("Error fetching profile:", error)
+        res.status(500).json({error: "Internal server error"})
+    }
+})
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
   });
