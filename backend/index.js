@@ -91,7 +91,44 @@ app.get("/logout", (req, res) => {
     return res.send("logout!")
 })
 
+//fetching profile data
+app.get("/api/v1/profile/:userId", async(req, res) => {
+    const {userId} = req.params
+
+    try {
+        const profile = await prisma.profile.findUnique({
+            where: {userId: Number(userId)}
+
+        })
+
+        if (!profile) return res.status(404).json({message: 'Profile  not found'});
+
+        res.status(201).json(profile)
+    } catch (error) {
+       console.error("Error fetching Profile:", error)
+       res.status(500).json({error: 'internal server errror'}) 
+    }
+})
+
+
+app.post("/api/v1/profile", async (req, res) => {
+    const {userId, role, skills, interest, bio} = req.body
+
+    try {
+        const profile = await prisma.profile.upsert({
+            where: {userId: Number(userId)},
+            update:{role, skills, interest, bio},
+            create: {userId:Number(userId), role, skills, interest, bio}
+        })
+        res.json({message: 'Profile saved successfully!', profile})
+    } catch (error) {
+        console.error("Error saving profile:", error)
+        res.status(500).json({error:'internal server error'})
+    }
+})
+
 app.listen(3000, () => {
     console.log("port")
 })
+
 
