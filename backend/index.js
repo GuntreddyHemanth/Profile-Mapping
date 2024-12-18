@@ -149,6 +149,44 @@ app.get("/api/v1/discover", async(req, res) => {
     }
 })
 
+
+app.get("/api/v1/match/:userId", async (req, res) => {
+    const {userId} = req.params;
+    try {
+        const userProfile = await prisma.profile.findUnique({
+            where: {userId: Number(userId)}
+        })
+
+        if (!userProfile) {
+            return res.status(404).json({message: "User Profile not found"})
+        }
+
+        const {role, skills, interest} = userProfile;
+
+        const matches = await prisma.profile.findMany({
+            where:{
+                AND:[
+                    {userId: {not:  Number(userId)}},
+                    role ? {role: {contains: role, mode: "insensitive"}}: {},
+                    skills ? {skills: {contains: skills, mode: "insensitive"}}: {},
+                    interest ? {interest: {contains: interest, mode: "insensitive"}}: {},
+                ],
+            },
+        });
+        console.log(matches)
+
+        if (matches.length === 0) {
+            return res.status(200).json({ message: "No matches found", matches: [] });
+
+        }
+
+        res.status(200).json(matches)
+    } catch (error) {
+        console.error("Error finding matches:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
   });
