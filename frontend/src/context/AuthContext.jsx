@@ -62,7 +62,7 @@ export const AuthProvider = ({children}) =>{
             localStorage.removeItem('mentorship-user')
             setAuthUser(null)
             alert("your successfully logout!")
-            navigation("/api/v1/signup")
+            // navigation("/api/v1/signup")
         } catch (error) {
             console.log("logout failed", error)
         }

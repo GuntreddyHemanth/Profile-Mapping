@@ -20,18 +20,18 @@ const App = () => {
 
   return (
     <Layout>
-      {authUser && (
+      {/* {authUser && (
         <div className="mb-4 flex justify-end">
           <Button onClick={logout} variant="outline">Logout</Button>
         </div>
-      )}
+      )} */}
       <Routes>
         <Route path="/api/v1/signin" element={authUser ? <Navigate to="/" /> :<Signin/>} />
         <Route path="/api/v1/signup" element={authUser ? <Navigate to="/" /> : <Signup/>} />
         <Route path="/" element={<AuthenticatedRoute><Home /></AuthenticatedRoute>} />
         <Route path="/api/v1/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>} />
         <Route path="/api/v1/discover" element={<AuthenticatedRoute><Discover /></AuthenticatedRoute>} />
-        <Route path="/api/v1/match" element={<AuthenticatedRoute><MatchingPage /></AuthenticatedRoute>} />
+        <Route path="/api/v1/match" element={<AuthenticatedRoute><MatchingPage userId={authUser.id}/></AuthenticatedRoute>} />
       </Routes>
       {!authUser && (
         <div className="mt-4 text-center">
