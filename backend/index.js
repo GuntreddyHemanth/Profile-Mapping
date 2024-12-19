@@ -129,12 +129,13 @@ app.post("/api/v1/profile", async (req, res) => {
 
 
 app.get("/api/v1/discover", async(req, res) => {
-    const {role, skills, interest} = req.query;
+    const {role, skills, interest, userId} = req.query;
 
     try {
         const profile = await prisma.profile.findMany({
             where: {
               AND: [
+                {userId: {not:  Number(userId)}},
                 role ? {role:{ contains: role, mode: "insensitive"} }: {},
                 skills ? {skills: {contains: skills, mode: "insensitive"}}: {},
                 interest ? {interest:{contains: interest, mode:"insensitive"}}: {}
