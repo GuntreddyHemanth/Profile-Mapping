@@ -5,8 +5,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 
-const Discover = () => {
-  const [filters, setFilters] = useState({ role: "", skills: "", interest: ""})
+const Discover = ({userId}) => {
+  const [filters, setFilters] = useState({ role: "", skills: "", interest: "", userId})
   const [profiles, setProfiles] = useState([])
   const [loading, setLoading] = useState(false)
 

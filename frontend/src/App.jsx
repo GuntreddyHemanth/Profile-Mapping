@@ -30,8 +30,8 @@ const App = () => {
         <Route path="/api/v1/signup" element={authUser ? <Navigate to="/" /> : <Signup/>} />
         <Route path="/" element={<AuthenticatedRoute><Home /></AuthenticatedRoute>} />
         <Route path="/api/v1/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>} />
-        <Route path="/api/v1/discover" element={<AuthenticatedRoute><Discover /></AuthenticatedRoute>} />
-        <Route path="/api/v1/match" element={<AuthenticatedRoute><MatchingPage userId={authUser.id}/></AuthenticatedRoute>} />
+        <Route path="/api/v1/discover" element={<AuthenticatedRoute>{authUser && <Discover userId={authUser.id} />}</AuthenticatedRoute>} />
+        <Route path="/api/v1/match" element={<AuthenticatedRoute>{authUser && <MatchingPage userId={authUser.id} />}</AuthenticatedRoute>} />
       </Routes>
       {!authUser && (
         <div className="mt-4 text-center">
