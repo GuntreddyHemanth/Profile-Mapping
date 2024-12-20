@@ -17,7 +17,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (authUser) {
-      axios.get(`https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/api/v1/profile/${authUser.id}`)
+      axios.get(`https://profile-mapping-mivlfo5bx-guntreddy-hemanths-projects.vercel.app/api/v1/profile/${authUser.id}`)
         .then((response) => {
           const { role, skills, interest, bio } = response.data
           setRole(role || '')

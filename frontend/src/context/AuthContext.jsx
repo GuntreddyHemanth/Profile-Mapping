@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) =>{
 
     const signin = async (username, password) => {
         try {
-            const response = await axios.post('https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/api/v1/signin', {
+            const response = await axios.post('https://profile-mapping-mivlfo5bx-guntreddy-hemanths-projects.vercel.app/api/v1/signin', {
                 username,
                 password
             }, {withCredentials: true})
@@ -41,7 +41,7 @@ export const AuthProvider = ({children}) =>{
 
     const signup = async (username, password) => {
         try {
-            const response = await axios.post('https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/api/v1/signup', {
+            const response = await axios.post('https://profile-mapping-mivlfo5bx-guntreddy-hemanths-projects.vercel.app/api/v1/signup', {
                 username,
                 password
             }, {withCredentials: true})
@@ -58,7 +58,7 @@ export const AuthProvider = ({children}) =>{
 
     const logout = async() => {
         try {
-            const response  = await axios.get('https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/logout', {}, {withCredentials:true})
+            const response  = await axios.get('https://profile-mapping-mivlfo5bx-guntreddy-hemanths-projects.vercel.app/logout', {}, {withCredentials:true})
             localStorage.removeItem('mentorship-user')
             setAuthUser(null)
             alert("your successfully logout!")

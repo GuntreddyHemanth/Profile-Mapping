@@ -13,7 +13,7 @@ const Discover = ({userId}) => {
   const fetchProfiles = async () => {
     setLoading(true)
     try {
-      const response = await axios.get("https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/api/v1/discover", {
+      const response = await axios.get("https://profile-mapping-mivlfo5bx-guntreddy-hemanths-projects.vercel.app/api/v1/discover", {
         params: filters
       })
       setProfiles(response.data)
