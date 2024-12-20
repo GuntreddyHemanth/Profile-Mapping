@@ -11,7 +11,7 @@ const MatchingPage = ({ userId }) => {
     const fetchMatch = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`https://profile-mapping.vercel.app/api/v1/match/${userId}`)
+        const response = await axios.get(`https://profile-mapping-2kp5i61na-guntreddy-hemanths-projects.vercel.app/api/v1/match/${userId}`)
         if (Array.isArray(response.data.matches)) {
           setMatches(response.data.matches)
         } else {
