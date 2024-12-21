@@ -13,6 +13,7 @@ const prisma = new PrismaClient();
 
 
 const app = express()
+dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -27,11 +28,11 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.use(express.json())
 app.use(cookieParser())
-dotenv.config()
 
 app.use(cors({
     credentials:true,
-    origin:"https://profile-mapping.vercel.app"
+    origin: ["http://localhost:3000", "https://profile-mapping.vercel.app"]
+
 }))
 
 
