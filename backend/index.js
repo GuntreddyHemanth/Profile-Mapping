@@ -100,7 +100,7 @@ app.post("/api/v1/signup", async (req, res) => {
 
 })
 
-app.get("/logout", (req, res) => {
+app.get("/api/v1/logout", (req, res) => {
     res.clearCookie("token")
     return res.send("logout!")
 })

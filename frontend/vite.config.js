@@ -15,7 +15,11 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000', // Adjust this to your backend server
+      "/api": {
+        target: "https://profile-mapping.vercel.app",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 });

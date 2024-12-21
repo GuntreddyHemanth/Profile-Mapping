@@ -24,10 +24,12 @@ export const AuthProvider = ({children}) =>{
 
     const signin = async (username, password) => {
         try {
-            const response = await axios.post('https://profile-mapping.vercel.app/api/v1/signin', {
+            const response = await axios.post('/api/v1/signin', {
                 username,
                 password
-            }, {withCredentials: true})
+            }, {withCredentials: true,  headers: {
+                "Content-Type": "application/json",
+              },})
             const userData = {id: response.data.id, token: response.data.token}
             localStorage.setItem('mentorship-user', JSON.stringify(userData))
             setAuthUser(userData)
@@ -41,10 +43,12 @@ export const AuthProvider = ({children}) =>{
 
     const signup = async (username, password) => {
         try {
-            const response = await axios.post('https://profile-mapping.vercel.app/api/v1/signup', {
+            const response = await axios.post('/api/v1/signup', {
                 username,
                 password
-            }, {withCredentials: true})
+            }, {withCredentials: true,  headers: {
+                "Content-Type": "application/json",
+              },})
             const userData = {id: response.data.id, token: response.data.token}
             localStorage.setItem('mentorship-user', JSON.stringify(userData))
             setAuthUser(userData)
@@ -58,7 +62,7 @@ export const AuthProvider = ({children}) =>{
 
     const logout = async() => {
         try {
-            const response  = await axios.get('https://profile-mapping.vercel.app/logout', {}, {withCredentials:true})
+            const response  = await axios.get('/api/v1/logout', {}, {withCredentials:true})
             localStorage.removeItem('mentorship-user')
             setAuthUser(null)
             alert("your successfully logout!")

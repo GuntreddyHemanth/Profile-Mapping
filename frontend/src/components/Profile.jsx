@@ -17,7 +17,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (authUser) {
-      axios.get(`https://profile-mapping.vercel.app/api/v1/profile/${authUser.id}`)
+      axios.get(`/api/v1/profile/${authUser.id}`)
         .then((response) => {
           const { role, skills, interest, bio } = response.data
           setRole(role || '')
@@ -36,7 +36,7 @@ const Profile = () => {
   const handleSave = async () => {
     const profileData = { role, skills, interest, bio }
     try {
-      await axios.post("http://localhost:3000/api/v1/profile", { ...profileData, userId: authUser.id })
+      await axios.post("/api/v1/profile", { ...profileData, userId: authUser.id })
       alert('Profile saved successfully!')
     } catch (error) {
       console.log("Error saving Profile:", error)
