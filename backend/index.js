@@ -31,7 +31,7 @@ dotenv.config()
 
 app.use(cors({
     credentials:true,
-    origin:"*"
+    origin:"https://profile-mapping.vercel.app"
 }))
 
 
